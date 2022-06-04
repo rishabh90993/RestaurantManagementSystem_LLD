@@ -1,0 +1,5 @@
+Sandwich Capsicum 1 Bread 2 Cheese 1 Tomato 1 319.5
+MasalaDosa Batter 0.5 Spices 0.4 Onions 1 Potato 1.25 397.5
+Coffee CoffeePowder 0.10 Milk 0.3 120.0
+Tea TeaLeaves 0.20 Milk 0.4 135.0
+FilterCoffee CoffeePowder 0.2 Milk 0.3 120.0
