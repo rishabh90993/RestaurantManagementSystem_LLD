@@ -43,14 +43,6 @@ public class Recipe {
         return  amount;
     }
 
-    private double calculateRecipeCost(){
-        double amount = 0;
-        for(int i=0;i<itemList.size();i++){
-            amount = amount+itemList.get(i).getIngredientPrice();
-        }
-        return  amount;
-    }
-
     public int getQuantity(){return quantity;}
 
     public void setQuantity(int quantity){ this.quantity = quantity; }

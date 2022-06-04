@@ -13,10 +13,6 @@ public class Order {
         this.date = date;
     }
 
-    boolean isOrderAvailable(){
-        return recipe.isQuantityAvailable();
-    }
-
     @Override
     public String toString() {
         return recipe.toString() + " " + date.toString();
