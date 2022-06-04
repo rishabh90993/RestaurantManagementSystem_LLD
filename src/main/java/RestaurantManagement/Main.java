@@ -49,11 +49,11 @@ public class Main {
             default:
                 break;
         }
-        menuCommand();
     }
 
     static void viewAvailableIngredients(){
         restaurantManager.viewOrderIngredients();
+        menuCommand();
     }
 
     static void orderIngredients(){
@@ -69,14 +69,17 @@ public class Main {
 
     static void viewTotalSales(){
         restaurantManager.viewTotalSales();
+        menuCommand();
     }
 
     static void viewTotalExpenses(){
         restaurantManager.viewTotalExpenses();
+        menuCommand();
     }
 
     static  void viewNetProfit(){
         restaurantManager.viewTotalNetProfit();
+        menuCommand();
     }
 
     static void placeOrder(){
@@ -92,7 +95,8 @@ public class Main {
             return;
         }
 
-        restaurantManager.placeAnOrder(recipe1);
+        restaurantManager.placeAnOrder(recipe);
+        menuCommand();
     }
 
 }

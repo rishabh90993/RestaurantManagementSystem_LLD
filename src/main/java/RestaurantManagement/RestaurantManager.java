@@ -4,13 +4,10 @@ import RestaurantManagement.Account.AccountManager;
 import RestaurantManagement.Ingredients.Ingredient;
 import RestaurantManagement.Ingredients.InventoryManager;
 import RestaurantManagement.Ingredients.Item;
-import RestaurantManagement.Orders.Order;
 import RestaurantManagement.Orders.OrderManager;
 import RestaurantManagement.Orders.Recipe;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Date;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,13 +119,37 @@ public class RestaurantManager implements OrderManager, InventoryManager {
         accountManager.viewNetProfit();
     }
 
-    public void placeAnOrder(Recipe recipe){
-        if(recipe.isQuantityAvailable()){
+    public void placeAnOrder(String recipe1){
+        String[] str = recipe1.split(" ");
+
+        if(str.length<=1) {
+            System.out.println("Recipe or quantity not found");
+            return ;
+        }
+
+        Recipe recipe ;
+        try {
+            recipe = findRecipe(str[0]);
+        }catch (Exception e){
+            System.out.println("Recipe not found.");
+            return ;
+        }
+
+        int quantity;
+        try {
+            quantity = Integer.parseInt(str[1]);
+            recipe.setQuantity(quantity);
+        }catch (Exception e){
+            System.out.println("Quantity invalid");
+            return ;
+        }
+
+        if(recipe.isQuantityAvailable(recipe.getQuantity())){
             accountManager.addSale(recipe);
             System.out.println("\n === Bill Amount== \n" + recipe.getAmount());
             System.out.println("\nOrder Placed Successfully.");
         }else{
-            if(accountManager.purchaseIngredients(recipe.getItems())){
+            if(accountManager.purchaseIngredientsForRecipe(recipe)){
                 System.out.println("\n === Bill Amount== \n" + recipe.getAmount());
                 accountManager.addSale(recipe);
                 System.out.println("\nOrder Placed Successfully.");

@@ -4,5 +4,5 @@ public interface OrderManager {
 
     public void orderIngredient(String ingredient);
 
-    void placeAnOrder(Recipe recipe);
+    void placeAnOrder(String recipe);
 }

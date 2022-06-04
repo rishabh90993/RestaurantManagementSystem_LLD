@@ -1,6 +1,5 @@
 package RestaurantManagement.Account;
 
-import RestaurantManagement.Ingredients.Ingredient;
 import RestaurantManagement.Ingredients.Item;
 import RestaurantManagement.Orders.Recipe;
 
@@ -27,7 +26,7 @@ public class AccountManager {
 
     public void addSale(Recipe recipe){
         recipe.removeItemQuantities();
-        totalMoney+= recipe.getAmount();
+        totalMoney += recipe.getBillAmount();
         Transaction transaction = new Transaction(recipe);
         sales.add(transaction);
     }
@@ -37,7 +36,6 @@ public class AccountManager {
         for(int i=0;i<sales.size();i++){
             System.out.println(sales.get(i).toString());
         }
-
     }
 
     public void viewNetProfit(){
@@ -47,14 +45,16 @@ public class AccountManager {
         System.out.println("Net Profit: " + (totalMoney-initialBalance));
     }
 
-    public boolean purchaseIngredients(List<Item> items){
+    public boolean purchaseIngredientsForRecipe(Recipe recipe){
 
         double amountRequired = 0;
+        List<Item> items = recipe.getItems();
 
         //getting money required to get items
         for(int i=0; i<items.size();i++){
-            if(items.get(i).getQuantity() > items.get(i).getIngredient().getQuantity()){
-                amountRequired+= items.get(i).getIngredientPrice() * (items.get(i).getQuantity() - items.get(i).getIngredient().getQuantity());
+            double quantity = items.get(i).getQuantity() * recipe.getQuantity();
+            if(quantity > items.get(i).getIngredient().getQuantity()){
+                amountRequired+= items.get(i).getIngredientPrice() * (quantity - items.get(i).getIngredient().getQuantity());
             }
         }
 
@@ -65,8 +65,9 @@ public class AccountManager {
         // purchasing items
         List<Item> purchasedItems = new ArrayList<>();
         for(int i=0; i<items.size();i++){
-            if(items.get(i).getQuantity() > items.get(i).getIngredient().getQuantity()){
-                double quantity = items.get(i).getQuantity() - items.get(i).getIngredient().getQuantity();
+            double recipeQuantity = items.get(i).getQuantity() * recipe.getQuantity();
+            if(recipeQuantity > items.get(i).getIngredient().getQuantity()){
+                double quantity = recipeQuantity - items.get(i).getIngredient().getQuantity();
                  items.get(i).addQuantity(quantity);
                 purchasedItems.add(new Item(items.get(i).getIngredient(),quantity));
             }

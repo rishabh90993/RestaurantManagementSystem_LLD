@@ -9,8 +9,8 @@ public class Item {
         this.quantity = quantity;
     }
 
-   public boolean isQuantityExist(){
-        return ingredient.getQuantity() >= quantity;
+   public boolean isQuantityExist(double recipeQuantity){
+        return ingredient.getQuantity() >= this.quantity * recipeQuantity;
     }
 
    public double getQuantity(){
@@ -20,8 +20,8 @@ public class Item {
     public void addQuantity(double quantity){
         ingredient.addQuantity(quantity);
     }
-    public void removeQuantity() {
-        ingredient.removeQuantity(quantity);
+    public void removeQuantity(int recipeQuantity) {
+        ingredient.removeQuantity(quantity * recipeQuantity);
     }
 
     public double getIngredientPrice(){

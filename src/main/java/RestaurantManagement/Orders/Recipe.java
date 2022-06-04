@@ -8,6 +8,9 @@ import java.util.List;
 public class Recipe {
     private final String name;
     private double amount;
+
+    private int quantity;
+
     private List<Item> itemList = new ArrayList();
 
     public Recipe(String name,double amount,ArrayList<Item> items){
@@ -24,6 +27,10 @@ public class Recipe {
         return amount;
     }
 
+    public double getBillAmount() {
+        return amount * quantity;
+    }
+
     public List<Item> getItems(){
         return itemList;
     }
@@ -31,7 +38,7 @@ public class Recipe {
     public double removeItemQuantities(){
 
         for(int i=0;i<itemList.size();i++){
-            itemList.get(i).removeQuantity();
+            itemList.get(i).removeQuantity(this.getQuantity());
         }
         return  amount;
     }
@@ -44,9 +51,14 @@ public class Recipe {
         return  amount;
     }
 
-   public boolean isQuantityAvailable(){
+    public int getQuantity(){return quantity;}
+
+    public void setQuantity(int quantity){ this.quantity = quantity; }
+
+   public boolean isQuantityAvailable(int recipeQuantity){
+
         for(int i=0;i<itemList.size();i++){
-            if(!itemList.get(i).isQuantityExist())
+            if(!itemList.get(i).isQuantityExist(recipeQuantity))
                 return  false;
         }
         return  true;
@@ -54,6 +66,6 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return name + ": " + amount+"INR";
+        return name + " " + ((quantity==1) ? "" : "Quantity : "+quantity+" " ) + amount+"INR";
     }
 }

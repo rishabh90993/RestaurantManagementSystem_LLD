@@ -15,6 +15,6 @@ public class Transaction {
     }
 
     public String toString(){
-        return this.recipe + " on " + date.toString();
+        return this.recipe.getName() + " - " + recipe.getQuantity() + " \nBill Amount: "+ recipe.getBillAmount()+" INR " + " on " + date.toString();
     }
 }
