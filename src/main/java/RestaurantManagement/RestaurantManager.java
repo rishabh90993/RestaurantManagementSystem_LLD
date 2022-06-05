@@ -74,33 +74,12 @@ public class RestaurantManager implements OrderManager, InventoryManager {
          Ingredient.viewAvailableIngredients();
     }
 
-    public void orderIngredient(String ingredient){
-         String[] str = ingredient.split(" ");
-         if(str.length<=1) {
-             System.out.println("Ingredient not found");
-             return ;
-         }
-         Ingredient ingredient1 ;
-        try {
-            ingredient1 = Ingredient.valueOf(str[0]);
-        }catch (Exception e){
-            System.out.println("Ingredient not found.");
-            return ;
-        }
-
-        double quantity;
-         try {
-             quantity = Double.parseDouble(str[1]);
-         }catch (Exception e){
-             System.out.println("Quantity invalid");
-            return ;
-         }
-
-        boolean isSuccessful =  accountManager.purchaseIngredient(new Item(ingredient1,quantity));
+    public void orderIngredient(Item item){
+        boolean isSuccessful =  accountManager.purchaseIngredient(item);
 
         if(isSuccessful){
             System.out.println("Ingredient bought Successfully");
-            System.out.println(ingredient1.toString());
+            System.out.println(item.getIngredient().toString());
         }else{
             System.out.println("Insufficient Money!! Cannot Buy Ingredient");
         }
@@ -119,30 +98,7 @@ public class RestaurantManager implements OrderManager, InventoryManager {
         accountManager.viewNetProfit();
     }
 
-    public void placeAnOrder(String recipe1){
-        String[] str = recipe1.split(" ");
-
-        if(str.length<=1) {
-            System.out.println("Recipe or quantity not found");
-            return ;
-        }
-
-        Recipe recipe ;
-        try {
-            recipe = findRecipe(str[0]);
-        }catch (Exception e){
-            System.out.println("Recipe not found.");
-            return ;
-        }
-
-        int quantity;
-        try {
-            quantity = Integer.parseInt(str[1]);
-            recipe.setQuantity(quantity);
-        }catch (Exception e){
-            System.out.println("Quantity invalid");
-            return ;
-        }
+    public void placeAnOrder(Recipe recipe){
 
         if(recipe.isQuantityAvailable(recipe.getQuantity())){
             accountManager.addSale(recipe);

@@ -1,5 +1,7 @@
 package RestaurantManagement;
 
+import RestaurantManagement.Ingredients.Ingredient;
+import RestaurantManagement.Ingredients.Item;
 import RestaurantManagement.Orders.Recipe;
 
 import java.util.Scanner;
@@ -59,11 +61,20 @@ public class Main {
     static void orderIngredients(){
         restaurantManager.viewOrderIngredients();
         System.out.println(" \n --- Order any ingredient with quantity ---");
+        System.out.println("\n Enter Ingredient Name");
 
-        String ingredient = "";
-        scanner.nextLine();
-        ingredient += scanner.nextLine();
-        restaurantManager.orderIngredient(ingredient);
+        String name = scanner.next();
+        Ingredient ingredient1 ;
+        try {
+            ingredient1 = Ingredient.valueOf(name);
+        }catch (Exception e){
+            System.out.println("Ingredient not found.");
+            return ;
+        }
+
+        System.out.println(" Enter Ingredient Quantity");
+        double quantity = scanner.nextDouble();
+        restaurantManager.orderIngredient(new Item(ingredient1,quantity));
         menuCommand();
     }
 
@@ -85,16 +96,18 @@ public class Main {
     static void placeOrder(){
         restaurantManager.viewRecipeMenu();
         System.out.println(" \n --- Order any Recipe ---");
+        System.out.println(" \n Enter Recipe Name");
 
-        String recipe = "";
-        scanner.nextLine();
-        recipe += scanner.nextLine();
-        Recipe recipe1 = restaurantManager.findRecipe(recipe);
-        if(recipe1 ==null){
+        String name = scanner.next();
+
+        Recipe recipe = restaurantManager.findRecipe(name);
+        if(recipe ==null){
             System.out.println("Recipe not Found!!");
             return;
         }
-
+        System.out.println(" Enter Recipe Quantity");
+        int quantity = scanner.nextInt();
+        recipe.setQuantity(quantity);
         restaurantManager.placeAnOrder(recipe);
         menuCommand();
     }

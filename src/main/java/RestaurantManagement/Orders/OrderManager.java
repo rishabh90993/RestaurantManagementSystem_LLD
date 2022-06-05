@@ -1,8 +1,10 @@
 package RestaurantManagement.Orders;
 
+import RestaurantManagement.Ingredients.Item;
+
 public interface OrderManager {
 
-    public void orderIngredient(String ingredient);
+    public void orderIngredient(Item item);
 
-    void placeAnOrder(String recipe);
+    void placeAnOrder(Recipe recipe);
 }
