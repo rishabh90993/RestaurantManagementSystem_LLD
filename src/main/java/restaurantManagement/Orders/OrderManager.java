@@ -1,6 +1,6 @@
-package RestaurantManagement.Orders;
+package restaurantManagement.Orders;
 
-import RestaurantManagement.Ingredients.Item;
+import restaurantManagement.Ingredients.Item;
 
 public interface OrderManager {
 

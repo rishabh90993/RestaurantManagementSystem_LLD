@@ -1,4 +1,4 @@
-package RestaurantManagement.Orders;
+package restaurantManagement.Orders;
 
 
 import java.util.Date;

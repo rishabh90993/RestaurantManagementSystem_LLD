@@ -1,4 +1,8 @@
-package RestaurantManagement.Ingredients;
+package restaurantManagement.Ingredients;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public enum Ingredient {
 
@@ -24,6 +28,16 @@ public enum Ingredient {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public static void readFiles() throws IOException {
+        String ingredients = new String(Files.readAllBytes(Paths.get("Assets/ingredients.txt").toAbsolutePath()));
+        String[] strIngredient = ingredients.split("\n");
+
+        for(int i=0;i<strIngredient.length;i++){
+            String[] str = strIngredient[i].split(" ");
+            Ingredient.setData(str[0].replaceAll("\\s+", ""), Double.parseDouble(str[1].replaceAll("\\s+", "")), Double.parseDouble(str[2].replaceAll("\\s+", "")));
+        }
     }
 
     public double getQuantity(){

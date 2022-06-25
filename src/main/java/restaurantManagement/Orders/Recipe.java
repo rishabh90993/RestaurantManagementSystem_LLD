@@ -1,11 +1,18 @@
-package RestaurantManagement.Orders;
+package restaurantManagement.Orders;
 
-import RestaurantManagement.Ingredients.Item;
+import restaurantManagement.Ingredients.Ingredient;
+import restaurantManagement.Ingredients.Item;
+import restaurantManagement.reader.Reader;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe {
+import static restaurantManagement.reader.Reader.readFile;
+
+public class Recipe extends Reader {
     private final String name;
     private double amount;
 
@@ -17,6 +24,24 @@ public class Recipe {
         this.name = name;
         this.itemList = items;
         this.amount = amount;
+    }
+
+    public static List<Recipe> readFiles() throws IOException {
+        String srecipe = readFile("Assets/receipe.txt");
+        String[] strRecipe = srecipe.split("\n");
+        List<Recipe> recipeList = new ArrayList<>();
+
+        for(int i=0;i<strRecipe.length;i++){
+            String[] str = strRecipe[i].split(" ");
+            ArrayList<Item> items = new ArrayList<>();
+            for(int j=1;j<str.length-1;j+=2){
+                items.add(new Item(Ingredient.valueOf(str[j]),Double.parseDouble(str[j+1])));
+            }
+            recipeList.add( new Recipe(str[0],Double.parseDouble(str[str.length-1]),items));
+            items = null;
+            str = null;
+        }
+        return  recipeList;
     }
 
     public String getName() {
@@ -58,6 +83,6 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return name + " " + ((quantity==1) ? "" : "Quantity : "+quantity+" " ) + amount+"INR";
+        return name + " " + ((quantity<=1) ? "" : "Quantity : "+quantity+" " ) + amount+"INR";
     }
 }

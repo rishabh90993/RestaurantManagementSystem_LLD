@@ -1,11 +1,11 @@
-package RestaurantManagement;
+package restaurantManagement;
 
-import RestaurantManagement.Account.AccountManager;
-import RestaurantManagement.Ingredients.Ingredient;
-import RestaurantManagement.Ingredients.InventoryManager;
-import RestaurantManagement.Ingredients.Item;
-import RestaurantManagement.Orders.OrderManager;
-import RestaurantManagement.Orders.Recipe;
+import restaurantManagement.Account.AccountManager;
+import restaurantManagement.Ingredients.Ingredient;
+import restaurantManagement.Ingredients.InventoryManager;
+import restaurantManagement.Ingredients.Item;
+import restaurantManagement.Orders.OrderManager;
+import restaurantManagement.Orders.Recipe;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,34 +19,14 @@ public class RestaurantManager implements OrderManager, InventoryManager {
 
      void readFiles() {
          try {
-
-             // Parsing account
-             String account = new String(Files.readAllBytes(Paths.get("Assets/accounts.txt").toAbsolutePath()));
+             String account = AccountManager.readFiles();
              accountManager = new AccountManager(Integer.parseInt(account));
 
              // Parsing Ingredients
-             String ingredients = new String(Files.readAllBytes(Paths.get("Assets/ingredients.txt").toAbsolutePath()));
-             String[] strIngredient = ingredients.split("\n");
-
-             for(int i=0;i<strIngredient.length;i++){
-                 String[] str = strIngredient[i].split(" ");
-                 Ingredient.setData(str[0].replaceAll("\\s+", ""), Double.parseDouble(str[1].replaceAll("\\s+", "")), Double.parseDouble(str[2].replaceAll("\\s+", "")));
-             }
+             Ingredient.readFiles();
 
              // Parsing Recipes
-             String srecipe = new String(Files.readAllBytes(Paths.get("Assets/receipe.txt").toAbsolutePath()));
-             String[] strRecipe = srecipe.split("\n");
-
-             for(int i=0;i<strRecipe.length;i++){
-                 String[] str = strRecipe[i].split(" ");
-                 ArrayList<Item> items = new ArrayList<>();
-                 for(int j=1;j<str.length-1;j+=2){
-                     items.add(new Item(Ingredient.valueOf(str[j]),Double.parseDouble(str[j+1])));
-                 }
-                 recipeList.add( new Recipe(str[0],Double.parseDouble(str[str.length-1]),items));
-                 items = null;
-                 str = null;
-             }
+            recipeList.addAll(Recipe.readFiles());
 
          }catch (Exception e){
              e.printStackTrace();

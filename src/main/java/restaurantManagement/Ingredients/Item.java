@@ -1,4 +1,4 @@
-package RestaurantManagement.Ingredients;
+package restaurantManagement.Ingredients;
 
 public class Item {
    private Ingredient ingredient;

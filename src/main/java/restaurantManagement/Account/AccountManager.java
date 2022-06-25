@@ -1,12 +1,16 @@
-package RestaurantManagement.Account;
+package restaurantManagement.Account;
 
-import RestaurantManagement.Ingredients.Item;
-import RestaurantManagement.Orders.Recipe;
+import restaurantManagement.Ingredients.Item;
+import restaurantManagement.Orders.Recipe;
+import restaurantManagement.reader.Reader;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountManager {
+public class AccountManager extends Reader {
     private double initialBalance;
    protected double totalMoney;
    private List<Expense> expenses = new ArrayList<Expense>();
@@ -15,6 +19,11 @@ public class AccountManager {
    public AccountManager(double initialBalance){
        this.initialBalance = initialBalance;
        this.totalMoney = initialBalance;
+   }
+
+   public static String readFiles() throws IOException {
+       // Parsing account
+       return readFile("Assets/accounts.txt");
    }
 
     public void viewTotalExpenses(){

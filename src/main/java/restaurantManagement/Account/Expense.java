@@ -1,10 +1,8 @@
-package RestaurantManagement.Account;
+package restaurantManagement.Account;
 
-import RestaurantManagement.Ingredients.Item;
-import RestaurantManagement.Orders.Recipe;
+import restaurantManagement.Ingredients.Item;
 
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 

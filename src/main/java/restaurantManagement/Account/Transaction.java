@@ -1,6 +1,6 @@
-package RestaurantManagement.Account;
+package restaurantManagement.Account;
 
-import RestaurantManagement.Orders.Recipe;
+import restaurantManagement.Orders.Recipe;
 
 import java.time.Instant;
 import java.util.Date;

@@ -1,10 +1,12 @@
-package RestaurantManagement;
+package restaurantManagement;
 
-import RestaurantManagement.Ingredients.Ingredient;
-import RestaurantManagement.Ingredients.Item;
-import RestaurantManagement.Orders.Recipe;
+import restaurantManagement.Ingredients.Ingredient;
+import restaurantManagement.Ingredients.Item;
+import restaurantManagement.Orders.Recipe;
 
 import java.util.Scanner;
+
+import static restaurantManagement.Command.ViewAvailableIngredients;
 
 public class Main {
    static Scanner scanner =  new Scanner(System.in);
@@ -15,41 +17,45 @@ public class Main {
     }
 
     public static void menuCommand(){
-        System.out.println("\nType any command number from below.");
-        System.out.println("1. View Available Ingredients\n 2. Order Ingredient \n 3. View total Sales \n 4. View Total Expenses \n 5. View Net Profit \n 6. Place Order \n 7. Exit");
-        String command = scanner.next();
-        int comm;
-        try {
-            comm = Integer.parseInt(command);
-        }catch(Exception e){
-            System.out.println("Invalid Command");
-            return;
-        }
+        Command command = Command.findCommand(getCommand());
 
-        switch (comm){
-            case 1:
+        switch (command){
+            case ViewAvailableIngredients:
                 viewAvailableIngredients();
                 break;
-            case 2:
+            case OrderIngredients:
                 orderIngredients();
                 break;
-            case 3:
+            case ViewTotalSales:
                 viewTotalSales();
                 break;
-            case 4:
+            case ViewTotalExpenses:
                 viewTotalExpenses();
                 break;
-            case 5:
+            case ViewNetProfit:
                 viewNetProfit();
                 break;
-            case 6:
+            case PlaceOrder:
                 placeOrder();
                 break;
-            case 7:
+            case Exit:
                 System.out.println("Good Bye!!");
                 return;
             default:
                 break;
+        }
+    }
+
+    static int getCommand(){
+        System.out.println("\nType any command number from below.");
+        System.out.println("1. View Available Ingredients\n 2. Order Ingredient \n 3. View total Sales \n 4. View Total Expenses \n 5. View Net Profit \n 6. Place Order \n 7. Exit");
+        String command = scanner.next();
+
+        try {
+            return Integer.parseInt(command);
+        }catch(Exception e){
+            System.out.println("Invalid Command");
+            return -1;
         }
     }
 
