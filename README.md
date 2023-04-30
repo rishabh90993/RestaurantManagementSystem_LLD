@@ -1,2 +1,3 @@
-# java.hackathon1
+# java LLD Example
+
 Restaurant management system
